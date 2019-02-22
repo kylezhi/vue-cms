@@ -6,6 +6,11 @@ import VueRouter from 'vue-router'
 // 1.2 安装路由
 Vue.use(VueRouter);
 
+// 2.1 导入axios
+import axios from 'axios';
+Vue.prototype.axios = axios;
+axios.defaults.baseURL = 'http://www.liulongbin.top:3005/api/';
+
 // 导入 MUI 的样式
 import './lib/mui/css/mui.min.css';
 // 导入扩展图标样式
