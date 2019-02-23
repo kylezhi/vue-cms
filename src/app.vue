@@ -29,7 +29,6 @@
 				<span class="mui-tab-label">搜索</span>
 			</router-link>
 		</nav>
-		<h1>3343</h1>
 	</div>
 </template>
 
@@ -41,6 +40,7 @@
 <style lang="scss" scoped>
 	.app-container {
 		padding-top: 40px;
+		padding-bottom: 50px;
 		overflow-x: hidden;
 	}
 
