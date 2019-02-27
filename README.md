@@ -4,7 +4,7 @@
    - 开发方式启动 npm run dev
    - 构建生产代码 npm run build
 
-#简介
+# 简介
 
 ## [主流开源协议之间有何异同？](https://www.zhihu.com/question/19568896)
 
@@ -127,6 +127,6 @@
  + 如何查看自己电脑所处 WIFI 的IP呢， 在 cmd 终端中运行 `ipconfig` ， 查看 无线网的 ip 地址
 
 
- ##设置购物车
+ ## 设置购物车
  有待补充~~~~
 
