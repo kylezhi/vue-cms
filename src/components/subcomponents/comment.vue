@@ -38,25 +38,27 @@
             this.getComments();
         },
         methods: {
-            getComments() { // 获取评论
-                this.axios.get("getcomments/" + this.id + "?pageindex=" + this.pageIndex).then((res) => {
-                    if (res.data.status === 0) {
-                        //console.log(res.data)
-                        //this.comments = res.data.message
-                        //每当获取新评论数据的时候，不要把老数据清空覆盖，
-                        //而是应该以老数据，拼接上新数据
-                        this.comments = this.comments.concat(res.data.message);
-                    } else {
-                        Toast('加载失败~')
-                    }
-                })
+            async getComments() { // 获取评论
+                const {
+                    data
+                } = await this.axios.get("getcomments/" + this.id + "?pageindex=" + this.pageIndex)
+                if (data.status === 0) {
+                    //console.log(data)
+                    //this.comments = data.message
+                    //每当获取新评论数据的时候，不要把老数据清空覆盖，
+                    //而是应该以老数据，拼接上新数据
+                    this.comments = this.comments.concat(data.message);
+                } else {
+                    Toast('加载失败~')
+                }
+
             },
             getMore() {
                 // 加载更多
                 this.pageIndex++;
                 this.getComments();
             },
-            postComment() {
+            async postComment() {
                 // 校验是否为空内容
                 if (this.msg.trim().length === 0) {
                     return Toast("评论内容不能为空！");
@@ -66,20 +68,22 @@
                 // 参数1： 请求的URL地址
                 // 参数2： 提交给服务器的数据对象 { content: this.msg }
                 // 参数3： 定义提交时候，表单中数据的格式  { emulateJSON:true }
-                this.axios.post("postcomment/" + this.$route.params.id, {
+                const {
+                    data
+                } = await this.axios.post("postcomment/" + this.$route.params.id, {
                     content: this.msg.trim()
-                }).then((res) => {
-                    if (res.data.status === 0) {
-                        // 1. 拼接出一个评论对象
-                        let cmt = {
-                            user_name: "匿名用户",
-                            add_time: Date.now(),
-                            content: this.msg.trim()
-                        };
-                        this.comments.unshift(cmt);
-                        this.msg = "";
-                    }
                 })
+                if (data.status === 0) {
+                    // 1. 拼接出一个评论对象
+                    let cmt = {
+                        user_name: "匿名用户",
+                        add_time: Date.now(),
+                        content: this.msg.trim()
+                    };
+                    this.comments.unshift(cmt);
+                    this.msg = "";
+                }
+
             }
         },
         props: ["id"]

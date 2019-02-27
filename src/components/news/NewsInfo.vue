@@ -19,34 +19,37 @@
 </template>
 
 <script>
-    import {Toast} from "mint-ui";
-     // 1. 导入 评论子组件
+    import {
+        Toast
+    } from "mint-ui";
+    // 1. 导入 评论子组件
     import comment from "../subcomponents/comment.vue";
 
     export default {
         data() {
             return {
                 id: this.$route.params.id, // 将 URL 地址中传递过来的 Id值，挂载到 data上，方便以后调用
-                newsinfo: {}  //新闻对象
+                newsinfo: {} //新闻对象
             }
         },
         created() {
             this.getNewsInfo();
         },
         methods: {
-            getNewsInfo() {
+            async getNewsInfo() {
                 // 获取新闻详情
-                this.axios.get('/getnew/' + this.id).then((res) => {
-                    //console.log(res.data)
-                    if (res.data.status === 0) {
-                        this.newsinfo = res.data.message[0];
-                    } else {
-                        Toast('获取新闻失败！')
-                    }
-                })
+                const {
+                    data
+                } = await this.axios.get('/getnew/' + this.id);
+                if (data.status === 0) {
+                    this.newsinfo = data.message[0];
+                } else {
+                    Toast('获取新闻失败！')
+                }
+
             }
         },
-        components : {
+        components: {
             // 用来注册子组件的节点
             "comment-box": comment
         }

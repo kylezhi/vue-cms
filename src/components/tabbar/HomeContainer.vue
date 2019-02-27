@@ -57,17 +57,17 @@
             this.getLunbotu();
         },
         methods: {
-            getLunbotu() {
-                this.axios.get('/getlunbo').then((res) => {
-                    //console.log(res.data)
-                    if (res.data.status == 0) {
+            async getLunbotu() {
+                const {data} = await this.axios.get('/getlunbo')
+                    //console.log(data)
+                    if (data.status == 0) {
                         // 成功了
-                        this.lunbotuList = res.data.message;
+                        this.lunbotuList = data.message;
                     } else {
                         // 失败的
                         Toast('加载轮插图失败!!!');
                     }
-                })
+               
             }
         },
         components: {

@@ -32,18 +32,18 @@
             this.getNewsList();
         },
         methods: {
-            getNewsList() {
+            async getNewsList() {
                 // 获取新闻列表
-                this.axios.get('/getnewslist').then((res) => {
+               const {data} = await this.axios.get('/getnewslist');
                     //console.log(res.data)
-                    if (res.data.status == 0) {
+                    if (data.status == 0) {
                         //success
-                        this.newslist = res.data.message;
+                        this.newslist = data.message;
                     } else {
                         // 失败的
                         Toast('加载新闻列表失败!!!');
                     }
-                })
+              
             }
         }
     }

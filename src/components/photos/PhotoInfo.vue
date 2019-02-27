@@ -59,20 +59,20 @@
 
             },
 
-            getThumbs() {
+            async getThumbs() {
                 // 获取缩略图
-                this.axios.get("getthumimages/" + this.id).then((res) => {
-                    if (res.data.status === 0) {
+                const {data} = await this.axios.get("getthumimages/" + this.id)
+                    if (data.status === 0) {
                         // 循环每个图片数据，补全图片的宽和高
-                        res.data.message.forEach(item => {
+                        data.message.forEach(item => {
                             item.w = 600;
                             item.h = 400;
                             item.msrc = item.src
                         });
                         // 把完整的数据保存到 list 中
-                        this.list = res.data.message;
+                        this.list = data.message;
                     }
-                })
+              
 
             }
         },

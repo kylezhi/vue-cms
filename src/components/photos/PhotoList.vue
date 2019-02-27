@@ -50,24 +50,24 @@
             });
         },
         methods: {
-            getAllCategory() {
-                this.axios.get('getimgcategory').then((res) => {
-                    if (res.data.status === 0) {
+            async getAllCategory() {
+                const {data} = await this.axios.get('getimgcategory');
+                    if (data.status === 0) {
                         // 手动拼接出一个最完整的 分类列表
-                        res.data.message.unshift({
+                        data.message.unshift({
                             title: "全部",
                             id: 0
                         });
-                        this.cates = res.data.message;
+                        this.cates = data.message;
                     }
-                })
+              
             },
-            getPhotoListByCateId(cateId) {
-                this.axios.get("getimages/" + cateId).then((res) => {
-                    if (res.data.status === 0) {
-                        this.list = res.data.message;
+            async getPhotoListByCateId(cateId) {
+                const {data} = await this.axios.get("getimages/" + cateId)
+                    if (data.status === 0) {
+                        this.list = data.message;
                     }
-                })
+               
             }
         },
     }
